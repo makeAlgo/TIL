@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 int compare(const void *a, const void *b);
+int compare2(const void *a, const void *b);
 
 typedef struct _meeting{
     int start, end;
@@ -18,16 +19,7 @@ int main(void){
         scanf("%i %i", &arr[i].start, &arr[i].end);
 
     qsort(arr, N, sizeof(meeting), compare);
-
-    for(int i = 1; i < N; i++){
-        if(arr[i-1].end == arr[i].end){
-            if(arr[i-1].start > arr[i].start){
-                int tmp = arr[i].start;
-                arr[i].start = arr[i-1].start;
-                arr[i-1].start = tmp;
-            }
-        }
-    }        
+    qsort(arr, N, sizeof(meeting),compare2);       
 
     int cnt = 0;
 
@@ -52,6 +44,18 @@ int compare(const void *a, const void *b){
     if(num1 < num2)
         return -1;
     if(num1 > num2)
+        return 1;
+
+    return 0;
+}
+int compare2(const void *a, const void *b){
+
+    meeting num1 = *(meeting *)a;
+    meeting num2 = *(meeting *)b;
+
+    if(num1.end == num2.end && num1.start < num2.start)
+        return -1;
+    if(num1.end == num2.end && num1.start > num2.start)
         return 1;
 
     return 0;
