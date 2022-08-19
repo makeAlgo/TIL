@@ -1,33 +1,58 @@
-/*
-회의시간은 겹칠 수 없다. 최대한 많이 회의 할 수 있는 횟수는 ?
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
 
+int compare(const void *a, const void *b);
+
+typedef struct _meeting{
+    int start, end;
+}meeting;
+
 int main(void){
-    // int n = 0;
-    // scanf("%i", &n);
+    
+    int N = 0;
+    scanf("%i", &N);
+    
+    meeting *arr = malloc(N * sizeof(meeting));
 
-    // int *timeTable = malloc((2 * n) * sizeof(int));
-    // for(int i = 0; i < n; i++){
-    //     scanf("%i %i",&timeTable[2*i], &timeTable[2*i+1]);
-    // }
+    for(int i = 0; i < N; i++)
+        scanf("%i %i", &arr[i].start, &arr[i].end);
 
-    int n = 11;
-    int timeTable[22] = {1,4,3,5,0,6,5,7,3,8,5,9,6,10,8,11,8,12,2,13,12,14};
+    qsort(arr, N, sizeof(meeting), compare);
 
-    //회의시간은 겹칠 수 없다.
-    for(int i = 0; i < 22; i += 2){
-        //0 2 4 6 8 10 12 14 16 18 20
-        // for(int j = 0; )
-        // if(timeTable[i+1] > timeTable[i*j+2]){
+    for(int i = 1; i < N; i++){
+        if(arr[i-1].end == arr[i].end){
+            if(arr[i-1].start > arr[i].start){
+                int tmp = arr[i].start;
+                arr[i].start = arr[i-1].start;
+                arr[i-1].start = tmp;
+            }
+        }
+    }        
 
-        // }
+    int cnt = 0;
+
+    for(int i = 0, tmp = 0; i < N; i++){
+        if(arr[i].start >= tmp){
+            cnt++;
+            tmp = arr[i].end;
+        }
     }
-    //최대한 많은 회의를 해야한다.
+    printf("%i", cnt);
+
+    free(arr);
+    return 0;
+}
 
 
-    free(timeTable);
+int compare(const void *a, const void *b){
+
+    int num1 = ((meeting *)a)->end;
+    int num2 = ((meeting *)b)->end;
+
+    if(num1 < num2)
+        return -1;
+    if(num1 > num2)
+        return 1;
+
     return 0;
 }
