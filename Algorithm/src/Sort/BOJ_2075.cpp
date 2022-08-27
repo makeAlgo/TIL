@@ -16,7 +16,7 @@ int main(void){
         cin >> arr[i];
     }
     sort(arr, arr + N*N, compare);
-    cout << arr[1] << endl; 
+    cout << arr[N-1] << endl; 
     return 0;
 }
 
