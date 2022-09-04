@@ -1,0 +1,31 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+    int T,N;
+    cin >> T;
+
+    while(T--) {
+        cin >> N;
+        vector<int> v;
+
+        for(int i = 0; i < N; i++) {
+            int x;
+            cin >> x;
+            v.push_back(x);
+        }
+
+        long long result = 0;
+        int max_value =- 1;
+
+        for(int i = N-1; i >= 0; i--) {
+            max_value = max(max_value,v[i]);
+            result += max_value - v[i];
+        }
+
+        cout << result << endl;
+    }
+}
