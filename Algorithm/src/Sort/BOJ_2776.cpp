@@ -4,6 +4,7 @@
 using namespace std;
 
 int T,N,M;
+
 int main(void){
     ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
@@ -24,10 +25,7 @@ int main(void){
         for(int i = 0; i < M; i++){
             int target;
             cin >> target;
-            if (binary_search(note1.begin(), note1.end(), target))
-				cout << 1 << '\n';
-			else
-				cout << 0 < '\n';
+            cout << binary_search(note1.begin(), note1.end(), target) << '\n';
         }
     }
     
