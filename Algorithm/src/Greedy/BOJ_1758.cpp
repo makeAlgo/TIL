@@ -1,23 +1,24 @@
 #include <iostream>
 #include <algorithm>
+#include <vector>
 using namespace std;
  
 int main(){
-    long long tips[100001];
-    int n;
-    cin >> n;
+    vector<long long> tips(100001);
+    int N;
+    cin >> N;
 
-    for (int i = 0; i < n;i++)
+    for (int i = 0; i < N; i++)
         cin >> tips[i];
     
-    sort(tips, tips + n, greater<int>());
+    sort(tips.begin(), tips.end(), greater<int>());
 
     long long sum = 0;
-    for (int i = 0; i < n;i++){
+    for (int i = 0; i < N; i++){
         if(tips[i] - i > 0)
             sum += tips[i] - i;
     }
 
-    cout << sum;
+    cout << sum << endl;
     return 0;
 }
